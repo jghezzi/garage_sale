@@ -1,0 +1,20 @@
+%h1 Garage Sale Items
+
+= link_to "Home", "/"
+= link_to "Add Items", "/items/new"
+
+%ul
+- @items.each do |i|
+	%li= "Item Number: #{i.id}"
+	%li= "Item Name: #{i.name}"
+	%li= "Item Description: #{i.description}"
+	%li= "Price: $#{i.price}"
+	%li= "Status: #{i.status}"
+
+	=form_for i, url: "items/#{i.id}", action: "PUT" do |t|
+		=t.hidden_field :status, :value => "SOLD"
+		=t.submit "Mark Sold"
+
+	%br
+
+
