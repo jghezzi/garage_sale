@@ -8,6 +8,6 @@
 = f.text_field :price
 
 = f.label :status
-= f.text_field :status
+= f.text_field :status, :value => "NOT SOLD", readonly:true
 
 = f.submit "Add"

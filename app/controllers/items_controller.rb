@@ -2,6 +2,12 @@ class ItemsController < ApplicationController
 	#GET '/items'
 	def index
 		@items = Item.all
+		@rev = 0
+		@items.each do |a| 
+			if a.status == "SOLD"
+				@rev += a.price
+			end
+		end
 	end
 
 	#GET '/items/new'
@@ -31,6 +37,12 @@ class ItemsController < ApplicationController
 	def update
 		@item = Item.find(params[:id])
 		@item.update_attributes(item_params)
+		redirect_to "/items"
+	end
+
+	def destroy
+		@delete_item = Item.find(params[:id])
+		@delete_item.delete
 		redirect_to "/items"
 	end
 

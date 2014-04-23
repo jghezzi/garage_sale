@@ -3,6 +3,8 @@
 = link_to "Home", "/"
 = link_to "Add Items", "/items/new"
 
+%h3= "Total Sales: $#{@rev}"
+
 %ul
 - @items.each do |i|
 	%li= "Item Number: #{i.id}"
@@ -11,10 +13,13 @@
 	%li= "Price: $#{i.price}"
 	%li= "Status: #{i.status}"
 
-	=form_for i, url: "items/#{i.id}", action: "PUT" do |t|
-		=t.hidden_field :status, :value => "SOLD"
-		=t.submit "Mark Sold"
+	- if i.status == "NOT SOLD" then 
+		=form_for i, url: "items/#{i.id}", action: "PUT" do |t|
+			=t.hidden_field :status, :value => "SOLD"	
+			=t.submit "Mark Sold"
+	
+	=button_to "Delete", "/items/#{i.id}", {:action => "delete", :method => :delete}
 
 	%br
-
+	%br
 
